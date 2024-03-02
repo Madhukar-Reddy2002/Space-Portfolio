@@ -1,4 +1,3 @@
-"use client"
 import Image from "next/image";
 import React, { useState, useRef } from "react";
 
@@ -12,7 +11,7 @@ interface Props {
 
 const ProjectCardVideo = ({ src, title, description, appLink, sourceCodeLink }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
-  const videoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null); // Define type for videoRef
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -26,7 +25,7 @@ const ProjectCardVideo = ({ src, title, description, appLink, sourceCodeLink }: 
 
   const playVideo = () => {
     if (videoRef.current) {
-      videoRef.current.play();
+      videoRef.current.play().catch(error => console.error("Error playing video:", error));
     }
   };
 
@@ -65,32 +64,33 @@ const ProjectCardVideo = ({ src, title, description, appLink, sourceCodeLink }: 
         <h1 className="text-2xl font-semibold text-white">{title}</h1>
         <p className="mt-2 text-gray-300">{description}</p>
         <div className="flex space-x-2 w-[100%] justify-between mt-3">
-            <a
-              href={appLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-blue-500"
-            >
-              <Image
-          src="/visit3d.png"
-          alt="work icons"
-          height={40}
-          width={40}/>
-            </a>
-            <a
-              href={sourceCodeLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-blue-500"
-            >
-              <Image
-          src="/github3d-removebg-preview.png"
-          alt="work icons"
-          height={50}
-          width={50}
-        />
-            </a>
-          </div>
+          <a
+            href={appLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline text-blue-500"
+          >
+            <Image
+              src="/visit3d.png"
+              alt="work icons"
+              height={40}
+              width={40}
+            />
+          </a>
+          <a
+            href={sourceCodeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline text-blue-500"
+          >
+            <Image
+              src="/github3d-removebg-preview.png"
+              alt="work icons"
+              height={50}
+              width={50}
+            />
+          </a>
+        </div>
       </div>
     </div>
   );
